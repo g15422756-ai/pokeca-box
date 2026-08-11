@@ -2,6 +2,8 @@ name: Update Pokeca Prices
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
   schedule:
     - cron: '15 2,6,9 * * *'
 
