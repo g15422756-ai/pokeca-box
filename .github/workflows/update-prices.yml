@@ -24,10 +24,10 @@ jobs:
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          markers=['<script src="price-live.js"></script>','<script src="legacy-catalog.js"></script>','<script src="enhancements.js"></script>']
-          for marker in markers:
-              if marker not in s:
-                  s=s.replace('</body>', marker+'</body>')
+          tags=['<script src="legacy-catalog.js"></script>','<script src="price-live.js"></script>','<script src="enhancements.js"></script>']
+          for tag in tags:
+              s=s.replace(tag,'')
+          s=s.replace('</body>',''.join(tags)+'</body>')
           p.write_text(s,encoding='utf-8')
           PY
       - run: |
