@@ -24,7 +24,7 @@ jobs:
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          tags=['<script src="legacy-catalog.js"></script>','<script src="price-live.js"></script>','<script src="enhancements.js"></script>','<script src="data-quality.js"></script>']
+          tags=['<script src="legacy-catalog.js"></script>','<script src="price-live.js"></script>','<script src="legacy-isolation.js"></script>','<script src="enhancements.js"></script>','<script src="data-quality.js"></script>']
           for tag in tags:
               s=s.replace(tag,'')
           s=s.replace('</body>',''.join(tags)+'</body>')
@@ -33,6 +33,6 @@ jobs:
       - run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/prices.json index.html legacy-catalog.js data-quality.js
+          git add data/prices.json index.html legacy-catalog.js legacy-isolation.js data-quality.js
           git diff --cached --quiet || git commit -m 'chore: update pokeca catalog and buy prices'
           git push
