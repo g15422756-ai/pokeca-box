@@ -36,9 +36,34 @@ const OFFICIAL={
  '漆黒のガイスト':{date:'2021-04-23',pack:165,url:'https://www.pokemon-card.com/products/s/s6.html'},
  '双璧のファイター':{date:'2021-03-19',pack:165,url:'https://www.pokemon-card.com/products/'},
  '一撃マスター':{date:'2021-01-22',pack:165,url:'https://www.pokemon-card.com/products/'},
- '連撃マスター':{date:'2021-01-22',pack:165,url:'https://www.pokemon-card.com/products/'},
+ '連撃マスター':{date:'2021-01-22',pack:165,url:'https://www.pokemon-card.com/products/'}
 };
 window.POKECA_OFFICIAL=OFFICIAL;
+
+// 通常BOXとは別に、未開封資産として管理価値のある特殊商品を追加。
+// 定価・発売日は公式確認済み。買取価格は価格更新処理側で取得できた場合のみ反映し、推測値は入れない。
+const SPECIALS=[
+ [2025,'拡張パック メガブレイブ ポケモンセンターセット',null,'未取得','2025/8/1',12800,'special'],
+ [2025,'拡張パック メガシンフォニア ポケモンセンターセット',null,'未取得','2025/8/1',12800,'special'],
+ [2025,'スペシャルBOX ポケモンセンタートウホク',8500,'もえたく！','2025/6/20',2090,'special'],
+ [2025,'スペシャルBOX ポケモンセンターヒロシマ',null,'未取得','2025/7/4',2090,'special'],
+ [2025,'スペシャルBOX ポケモンセンターフクオカ',10500,'もえたく！','2025/7/4',2090,'special'],
+ [2025,'デッキビルドBOX バトルパートナーズ',3600,'もえたく！','2025/1/24',4200,'special'],
+ [2025,'ブラックボルト・ホワイトフレア カードファイルセット',null,'未取得','2025/6/6',2640,'special'],
+ [2024,'スタートデッキGenerations スペシャルバトルセット',12000,'駿河屋','2024/11/22',4620,'special'],
+ [2024,'デッキビルドBOX ステラミラクル',1600,'もえたく！','2024/7/19',4200,'special'],
+ [2024,'スペシャルジャンボカードセット オーガポン',500,'もえたく！','2024/5/17',1980,'special'],
+ [2023,'YU NAGABA × ポケモンカードゲーム イーブイズ スペシャルBOX',null,'未取得','2023/5/24',4800,'special'],
+ [2021,'YU NAGABA × ポケモンカードゲーム スペシャルBOX',null,'未取得','2021/6/5',6226,'special'],
+ [2020,'スペシャルBOX ポケモンセンターカナザワオープン記念',null,'未取得','2020/11/20',5104,'special'],
+ [2020,'SHINY BOX クロバットV',null,'未取得','2020/12/18',4180,'special'],
+ [2020,'ソード&シールド ポケモンセンター限定セットスペシャル',null,'発売中止','2020/1/1',13200,'special-cancelled']
+];
+if(typeof D!=='undefined' && typeof C!=='undefined'){
+ const exists=new Set(D.map(d=>String(d[1])));
+ SPECIALS.forEach(d=>{if(!exists.has(String(d[1]))){D.push(d);C.push(0)}});
+ if(typeof render==='function')render();
+}
 const addLinks=()=>{
  document.querySelectorAll('#list .row').forEach(row=>{
   if(row.querySelector('.official-link'))return;
