@@ -2,8 +2,6 @@ name: Update Pokeca Prices
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
   schedule:
     - cron: '15 2,6,9 * * *'
 
@@ -25,10 +23,10 @@ jobs:
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          marker='<script src="price-live.js"></script>'
-          if marker not in s:
-              s=s.replace('</body>', marker+'</body>')
-              p.write_text(s,encoding='utf-8')
+          for marker in ['<script src="price-live.js"></script>','<script src="enhancements.js"></script>']:
+              if marker not in s:
+                  s=s.replace('</body>', marker+'</body>')
+          p.write_text(s,encoding='utf-8')
           PY
       - run: |
           git config user.name 'github-actions[bot]'
